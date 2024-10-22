@@ -1,0 +1,45 @@
+App\Entity\Location:
+  properties:
+    city:
+      - NotBlank:
+          groups: ['create']
+      - Length:
+          min: 3
+          groups: ['create']
+    country:
+      - NotBlank:
+          groups: ['create']
+    latitude:
+      - NotBlank:
+          groups: ['create']
+      - Range:
+          min: -90
+          max: 90
+          groups: ['create']
+    longitude:
+      - NotBlank:
+          groups: ['create']
+      - Range:
+          min: -180
+          max: 180
+          groups: ['create']
+
+App\Entity\Forecast:
+  properties:
+    date:
+      - NotBlank:
+          groups: ['create']
+    temperature:
+      - NotBlank:
+          groups: ['create']
+      - Range:
+          min: -30
+          max: 50
+          groups: ['create']
+    cloudiness:
+      - NotBlank:
+          groups: ['create']
+      - Range:
+          min: 0
+          max: 100
+          groups: ['create']
