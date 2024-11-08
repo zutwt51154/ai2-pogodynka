@@ -5,7 +5,8 @@
         {% for forecast in forecasts %}
         {
             "date": "{{ forecast.date | date('Y-m-d') }}",
-            "temperature": "{{ forecast.temperature }}"
+            "temperature": "{{ forecast.temperature }}",
+            "fahrenheit": "{{ forecast.fahrenheit }}"
         }{% if not loop.last %},{% endif %}
         {% endfor %}
     ]

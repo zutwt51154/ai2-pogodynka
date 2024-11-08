@@ -17,7 +17,7 @@ class WeatherApiController extends AbstractController
         WeatherUtil                            $util,
         #[MapQueryParameter('country')] string $country,
         #[MapQueryParameter('city')] string    $city,
-        #[MapQueryParameter('format')] string  $format = 'json',
+        #[MapQueryParameter('format')] string  $format = 'csv',
         #[MapQueryParameter('twig')] bool      $twig = true,
     ): Response
     {
@@ -34,11 +34,12 @@ class WeatherApiController extends AbstractController
             $csv .= implode(
                 "\n",
                 array_map(fn(Forecast $f) => sprintf(
-                    '%s, %s, %s, %s',
+                    '%s, %s, %s, %s, %s',
                     $city,
                     $country,
                     $f->getDate()->format('Y-m-d'),
                     $f->getTemperature(),
+                    $f->getFahrenheit()
                 ), $forecasts)
             );
             return new Response($csv, 200, [
@@ -58,6 +59,7 @@ class WeatherApiController extends AbstractController
                 'forecasts' => array_map(fn(Forecast $f) => [
                     'date' => $f->getDate()->format('Y-m-d'),
                     'temperature' => $f->getTemperature(),
+                    'fahrenheit' => $f->getFahrenheit()
                 ], $forecasts),
             ]);
         }
